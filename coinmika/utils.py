@@ -51,10 +51,31 @@ def create_ledger_account(coin_symbol: str, xpub: str):
     json_data = {
         'currency': coin_symbol.upper(),
         'xpub': xpub,
-        'customer': {'accountingCurrency': 'USD'},
+        'customer': {'accountingCurrency': 'USD', 'externalId': '123654'},
         'compliant': False,
         'accountingCurrency': 'USD',
     }
+
+    response = requests.post('https://api-eu1.tatum.io/v3/ledger/account', headers=headers, json=json_data)
+    return response.json()
+
+
+def create_ledger_account_for_added_coin(coin_symbol: str, xpub: str, ledger_id: str):
+    headers = {
+        # 'content-type': 'application/json',
+        'x-api-key': api_key,
+    }
+
+    customer_payload = {'accountingCurrency': 'USD', 'externalId': ledger_id}
+
+    json_data = {
+        'currency': coin_symbol.upper(),
+        'xpub': xpub,
+        'customer': customer_payload,
+        'compliant': False,
+        'accountingCurrency': 'USD',
+    }
+
     response = requests.post('https://api-eu1.tatum.io/v3/ledger/account', headers=headers, json=json_data)
     return response.json()
 
