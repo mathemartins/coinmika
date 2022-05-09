@@ -47,7 +47,7 @@ INSTALLED_APPS += [
 
 # Project required modules
 INSTALLED_APPS += [
-    # 'wallet',
+    'wallet',
     # 'transaction',
     'coins',
 ]
