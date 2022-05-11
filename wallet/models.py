@@ -3,6 +3,7 @@ from django.db import models
 
 # Create your models here.
 class BitcoinMnemonics(models.Model):
+    anon_user_uuid = models.CharField(max_length=500, blank=True, null=True)
     seed_phrase = models.TextField()
     xpub = models.CharField(max_length=500, blank=True, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -18,6 +19,7 @@ class BitcoinMnemonics(models.Model):
 
 
 class AddedCoinMnemonics(models.Model):
+    anon_user_uuid = models.CharField(max_length=500, blank=True, null=True)
     seed_phrase = models.TextField()
     xpub = models.CharField(max_length=500, blank=True, null=True)
     coin = models.CharField(max_length=300)
