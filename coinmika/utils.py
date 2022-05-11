@@ -11,6 +11,14 @@ curl --request GET \
   --url 'https://api-eu1.tatum.io/v3/{coin}/wallet'.format(coin="litecoin") \
   --header 'x-api-key: 2e2468f5-d6d2-4e76-b364-02d25dc62e3e'
   
+  curl --request GET \
+  --url 'https://api-eu1.tatum.io/v3/ethereum/wallet' \
+  --header 'x-api-key: 2e2468f5-d6d2-4e76-b364-02d25dc62e3e'
+  
+  for ethereum 
+  {"xpub":"xpub6FFhTcsQeuLM3xhuMmtpH5t9m3hh1NRZJKJPUHe2Vx1gkrHH9pTJTrkwjYKcjVGExgmnzjex1u8foPEjoTRbpFrBu7Qh92zqTfxY2L2Jr6P",
+  "mnemonic":"moral salmon pond clip artwork choice inject zoo measure bunker approve capital story deliver mask toward pumpkin crumble lava brand defense street smart near"}
+  
   
   Response
   {"mnemonic":"snake village rifle perfect put twenty horn lemon victory shield eternal tired assume prosper frozen market syrup loyal retire panic inside snap rug nuclear",
@@ -30,9 +38,15 @@ curl --request POST \
   --url https://api-eu1.tatum.io/v3/ledger/account \
   --header 'content-type: application/json' \
   --header 'x-api-key: 2e2468f5-d6d2-4e76-b364-02d25dc62e3e' \
-  --data '{"currency":"BTC","xpub":"tpubDFhQBEALpPC1svdY8FwinTRd9oEqojVgqpA8HQ9kPVz3zQPosuEZyPXmDmu9GrNAGzhTGeqJ1ca4f7M89HLnhMsWf1HAUdTtaAXryE2rHv8",
-  "customer":{"accountingCurrency":"USD"},
+  --data '{"currency":"ETH","xpub":"xpub6FFhTcsQeuLM3xhuMmtpH5t9m3hh1NRZJKJPUHe2Vx1gkrHH9pTJTrkwjYKcjVGExgmnzjex1u8foPEjoTRbpFrBu7Qh92zqTfxY2L2Jr6P",
+  "customer":{"accountingCurrency":"USD", "externalId": "62795458cf1a66a279592bbd"},
   "compliant":false,"accountingCurrency":"USD"}'
+  
+  
+  for ethereum
+  {"currency":"ETH","active":true,"balance":{"accountBalance":"0","availableBalance":"0"},"frozen":false,
+  "xpub":"xpub6FFhTcsQeuLM3xhuMmtpH5t9m3hh1NRZJKJPUHe2Vx1gkrHH9pTJTrkwjYKcjVGExgmnzjex1u8foPEjoTRbpFrBu7Qh92zqTfxY2L2Jr6P",
+  "accountingCurrency":"USD","customerId":"62795ff574ee9be5450db94b","id":"627966c5257a72ebe4df114f"}
   
   
   Response
@@ -72,7 +86,6 @@ def create_ledger_account_for_added_coin(coin_symbol: str, xpub: str, ledger_id:
         'currency': coin_symbol.upper(),
         'xpub': xpub,
         'customer': customer_payload,
-        'compliant': False,
         'accountingCurrency': 'USD',
     }
 
@@ -83,8 +96,13 @@ def create_ledger_account_for_added_coin(coin_symbol: str, xpub: str, ledger_id:
 """
 Generate Deposit Address
 curl --request POST \
-  --url 'https://api-eu1.tatum.io/v3/offchain/account/62781ba7e9e4efcfd4e6c75b/address' \
+  --url 'https://api-eu1.tatum.io/v3/offchain/account/627966c5257a72ebe4df114f/address' \
   --header 'x-api-key: 2e2468f5-d6d2-4e76-b364-02d25dc62e3e'
+  
+  
+  for ethereum
+  {"xpub":"xpub6FFhTcsQeuLM3xhuMmtpH5t9m3hh1NRZJKJPUHe2Vx1gkrHH9pTJTrkwjYKcjVGExgmnzjex1u8foPEjoTRbpFrBu7Qh92zqTfxY2L2Jr6P",
+  "derivationKey":1,"address":"0x04266ac3a846a4c5930dbaf3e364d4fc521ad457","currency":"ETH"}
   
   
   Response
@@ -137,7 +155,7 @@ def activate_transaction_alert(address: str, coin_symbol: str):
 """
 List All Customers Account
 curl --request GET \
-  --url 'https://api-eu1.tatum.io/v3/ledger/account/customer/62781ba7e9e4efcfd4e6c75c?pageSize=10' \
+  --url 'https://api-eu1.tatum.io/v3/ledger/account/customer/62795ff574ee9be5450db94b?pageSize=10' \
   --header 'x-api-key: 2e2468f5-d6d2-4e76-b364-02d25dc62e3e'
   
   
